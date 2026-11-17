@@ -143,7 +143,7 @@
         mouse {
             display-name = "MOU";
             // Active automatically while a finger is on the trackpad.
-            // Hold G = fast cursor (2x), hold B = slow cursor (1/3). Everything else passes through,
+            // Hold G = fast cursor (2x), hold B = slow cursor (1/2). Everything else passes through,
             // so home-row mods still work (D + click = Ctrl+click, F + click = Shift+click).
             // |     |     |     |     |     |      |   |     |     |     |     |     |     |
             // |     |     |     |     |     | FAST |   |     |     |     |     |     |     |
@@ -170,7 +170,7 @@
 
         slow {
             display-name = "SLOW";
-            // Held from the mouse layer (B). Trackpad cursor 1/3; see the `slow` override in toucan.dtsi.
+            // Held from the mouse layer (B). Trackpad cursor 1/2; see the `slow` override in toucan.dtsi.
             bindings = <
                 &trans &trans &trans &trans &trans &trans           &trans &trans &trans &trans &trans &trans
                 &trans &trans &trans &trans &trans &trans           &trans &trans &trans &trans &trans &trans
