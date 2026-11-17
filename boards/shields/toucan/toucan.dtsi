@@ -145,7 +145,7 @@
         compatible = "zmk,input-listener";
         status = "disabled";
         device = <&trackpad_split>;
-        input-processors = <&zip_xy_scaler 1 1>, <&zip_scroll_scaler 1 20>, <&zip_zoom_mapper>, <&is_touching_processor>, <&swipe_button_mapper>;
+        input-processors = <&zip_xy_scaler 100 100>, <&zip_scroll_scaler 1 20>, <&zip_zoom_mapper>, <&is_touching_processor>, <&swipe_button_mapper>;
         scroller {
             layers = <1 2>;
             input-processors = <
@@ -153,18 +153,6 @@
                 &zip_scroll_scaler 1 20
                 &zip_scroll_transform INPUT_TRANSFORM_X_INVERT
             >;
-        };
-        // Cursor speed while G (layer 5) or B (layer 6) is held on the mouse layer.
-        // process-next: afterwards run the normal processors above (touch -> mouse layer, zoom, swipes).
-        fast {
-            layers = <5>;
-            input-processors = <&zip_xy_scaler 2 1>;   // 2x speed
-            process-next;
-        };
-        slow {
-            layers = <6>;
-            input-processors = <&zip_xy_scaler 1 2>;   // 1/2 speed
-            process-next;
         };
     };
 };

@@ -8,9 +8,6 @@
 #define NUM  1
 #define NAV  2
 #define ADJ  3
-#define MOU  4
-#define FAST 5
-#define SLOW 6
 
 // Layer-tap: tap-then-hold within quick-tap repeats the tap key (BSPC) instead of holding the layer.
 &lt {
@@ -135,48 +132,27 @@
             bindings = <
                 &bt BT_CLR_ALL &kp F1     &kp F2       &kp F3       &kp F4       &kp F5         &kp F6 &kp F7 &kp F8 &kp F9 &kp F10 &kp F11
                 &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &none  &kp C_VOL_DN &kp C_MUTE &kp C_VOL_UP &none   &kp F12
-                &none &bt BT_PRV &bt BT_NXT &out OUT_TOG &none  &none    &none  &none  &none  &none  &none   &none
+            &none &bt BT_PRV &bt BT_NXT &out OUT_TOG &none  &none    &none  &none  &none  &none  &none   &none
                                     &none  &none  &none    &none  &none  &none
             >;
         };
 
         mouse {
             display-name = "MOU";
-            // Active automatically while a finger is on the trackpad.
-            // Hold G = fast cursor (2x), hold B = slow cursor (1/2). Everything else passes through,
-            // so home-row mods still work (D + click = Ctrl+click, F + click = Shift+click).
-            // |     |     |     |     |     |      |   |     |     |     |     |     |     |
-            // |     |     |     |     |     | FAST |   |     |     |     |     |     |     |
-            // |     |     |     |     |     | SLOW |   |     |     |     |     |     |     |
-            //                   | MCLK| LCLK| RCLK |   | LCLK| RCLK| MCLK|
             bindings = <
                 &trans &trans &trans &trans &trans &trans           &trans &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans &mo FAST         &trans &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans &mo SLOW         &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans           &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans           &trans &trans &trans &trans &trans &trans
                             &mkp MCLK &mkp LCLK &mkp RCLK           &mkp LCLK &mkp RCLK &mkp MCLK
             >;
         };
 
-        fast {
-            display-name = "FAST";
-            // Held from the mouse layer (G). Trackpad cursor 2x; see the `fast` override in toucan.dtsi.
-            bindings = <
-                &trans &trans &trans &trans &trans &trans           &trans &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans &trans           &trans &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans &trans           &trans &trans &trans &trans &trans &trans
-                            &trans &trans &trans           &trans &trans &trans
-            >;
+        extra_2 {
+                status = "reserved";
         };
 
-        slow {
-            display-name = "SLOW";
-            // Held from the mouse layer (B). Trackpad cursor 1/2; see the `slow` override in toucan.dtsi.
-            bindings = <
-                &trans &trans &trans &trans &trans &trans           &trans &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans &trans           &trans &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans &trans           &trans &trans &trans &trans &trans &trans
-                            &trans &trans &trans           &trans &trans &trans
-            >;
+        extra_3 {
+                status = "reserved";
         };
     };
 };
