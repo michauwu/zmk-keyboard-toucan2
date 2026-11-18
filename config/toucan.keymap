@@ -23,6 +23,18 @@
             bindings = <&kp LSHFT>, <&caps_word>;
         };
 
+        // Outer thumbs: tap = DEL, hold = modifier.
+        // Balanced: press+release another key while holding = modifier immediately (RALT+A = ą, Ctrl+C),
+        // so fast AltGr / Ctrl shortcuts never turn into Delete.
+        mt_bal: mod_tap_balanced {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;   // tap, then hold = repeating DEL
+            bindings = <&kp>, <&kp>;
+        };
+
         // Home-row mods. Same timing as before; the only addition is the opposite-hand rule:
         // pressing a same-hand key before tapping-term resolves the HRM as a letter (no misfires on rolls).
         // Holding past tapping-term still gives the mod with any key (e.g. D + V = Ctrl+V).
@@ -82,13 +94,13 @@
             // | ESC   |  Q    |  W    |  E    |  R    |  T  |   |  Y    |  U    |  I    |  O    |  P    |  -        |
             // | TAB   | gui/A | alt/S | ctl/D | sft/F |  G  |   |  H    | sft/J | ctl/K | alt/L | gui/; |  '        |
             // | SHIFT |  Z    |  X    |  C    |  V    |  B  |   |  N    |  M    |  ,    |  .    |  /    | =/SHIFT   |
-            //                         | CTRL  | NUM   | RET |   | SPACE |NAV/BK | RALT  |
+            //                       |CTRL/DEL|NUM/BK | RET |   | SPACE |NAV/BK |RALT/DEL|
             // SHIFT: tap-dance, double tap = CAPS WORD.   Combo: P + - = BSPC
             bindings = <
                 &kp ESC   &kp Q       &kp W       &kp E        &kp R        &kp T     &kp Y     &kp U        &kp I        &kp O       &kp P          &kp MINUS
                 &kp TAB   &hml LGUI A &hml LALT S &hml LCTRL D &hml LSHFT F &kp G     &kp H     &hmr RSHFT J &hmr RCTRL K &hmr LALT L &hmr RGUI SEMI &kp SQT
                 &td_lshft &kp Z       &kp X       &kp C        &kp V        &kp B     &kp N     &kp M        &kp COMMA    &kp DOT     &kp FSLH       &mt RSHFT EQUAL
-                                                  &kp LCTRL    &mo NUM      &kp RET   &kp SPACE &lt NAV BSPC &kp RALT
+                                                  &mt_bal LCTRL DEL &lt NUM BSPC &kp RET &kp SPACE &lt NAV BSPC &mt_bal RALT DEL
             >;
         };
 
