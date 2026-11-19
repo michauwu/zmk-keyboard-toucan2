@@ -1,5 +1,32 @@
 # Toucan2 keymap changelog
 
+## 2026-11-19: NUM / NAV hold time 200 → 170 ms
+
+File changed: `config/toucan.keymap` (`&lt` tapping term).
+
+- Hold the left middle thumb (NUM) or right middle thumb (NAV) for 170 ms instead of 200 ms to turn the layer on.
+- Applies to both middle thumbs, because they use the same layer-tap behavior.
+- Downside: a slow tap (170–200 ms) now gives the layer instead of Delete / Backspace.
+
+### To test after flashing
+- NUM + number and NAV + arrows feel quicker.
+- Normal taps still give Delete (left) / Backspace (right). If taps sometimes do nothing, the time is too short.
+
+## 2026-11-19: Left thumbs: plain Ctrl, NUM taps Delete
+
+File changed: `config/toucan.keymap`. Right thumbs and home-row mods are unchanged.
+
+Thumb row, before: `CTRL/DEL | NUM/BSPC | RET || SPACE | NAV/BSPC | RALT/DEL`
+Thumb row, after: `CTRL | NUM/DEL | RET || SPACE | NAV/BSPC | RALT/DEL`
+
+- **Left outer thumb:** now plain Ctrl. Tapping it alone does nothing (no more accidental Delete).
+- **Left middle thumb:** hold = NUM layer (as before), tap = Delete instead of Backspace. Tap then hold = repeating Delete.
+- Backspace is still on the right middle thumb (NAV/BSPC) and the P + - combo.
+
+### To test after flashing
+- Tap left outer thumb → nothing. Hold + C / V → copy / paste. Ctrl + click works.
+- Tap left middle thumb → Delete. Tap, then hold → Delete repeats. Hold → NUM. Hold both middle thumbs → ADJ.
+
 ## 2026-11-18: Backspace / Delete on thumbs
 
 File changed: `config/toucan.keymap`. Home-row mods are unchanged.

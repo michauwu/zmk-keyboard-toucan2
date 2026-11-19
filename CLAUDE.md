@@ -20,8 +20,10 @@ History of every change (what changed, why, how to test it): see `CHANGELOG.md`.
 - Left hand = columns 0–5 of each row (0–5, 12–17, 24–29). Right hand = columns 6–11.
 
 ## Layers
-- BASE 0, NUM 1 (left middle thumb, tap = BSPC), NAV 2 (right middle thumb, tap = BSPC).
-- Outer thumbs: hold = LCTRL / RALT, tap = DEL (`mt_bal`, balanced flavor so RALT+A = ą never becomes DEL).
+- BASE 0, NUM 1 (left middle thumb, tap = DEL), NAV 2 (right middle thumb, tap = BSPC).
+- Left outer thumb: plain LCTRL (no tap action).
+- Right outer thumb: hold = RALT, tap = DEL (`mt_bal`, balanced flavor so RALT+A = ą never becomes DEL).
+- Layer-tap (`&lt`, NUM and NAV): tapping term 170 ms, quick-tap 175 ms.
 - ADJ 3 is a tri-layer (NUM + NAV): Bluetooth, output toggle, media.
 - `extra_2` / `extra_3`: reserved and empty.
 - Mouse layer: G/B are `&trans`. The cursor speed keys were removed because they caused jitter.
@@ -40,7 +42,7 @@ History of every change (what changed, why, how to test it): see `CHANGELOG.md`.
 
 ## Working rules
 - Log every change at the **top** of `CHANGELOG.md`: the date, the files changed, what changed and why, and what to test after flashing.
-- Commit messages follow `00N short description` (next is 006).
+- Commit messages follow `00N short description` (next is 007).
 - Commit and push only when the user asks.
 - Don't create `.bak` files. Git history holds old versions.
 - Explain changes in plain language. The user tests on the real keyboard.
