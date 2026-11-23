@@ -9,7 +9,7 @@
 #define NAV  2
 #define ADJ  3
 
-// Layer-tap: tap-then-hold within quick-tap repeats the tap key (DEL on NUM, BSPC on NAV) instead of holding the layer.
+// Layer-tap: tap-then-hold within quick-tap repeats the tap key (BSPC on NUM and NAV) instead of holding the layer.
 // Hold 170 ms (default 200) to activate NUM / NAV.
 &lt {
     tapping-term-ms = <170>;
@@ -63,6 +63,30 @@
             hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 39 40 41>;
             bindings = <&kp>, <&kp>;
         };
+
+        // Sends Ctrl+<key> exactly once (no OS key-repeat while the key stays held).
+        // macOS: replace LCTRL with LGUI.
+        ctrl_tap: ctrl_tap {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_param_1to1>
+                , <&macro_tap &kp MACRO_PLACEHOLDER>
+                , <&macro_release &kp LCTRL>;
+        };
+
+        // tap = letter, hold 300 ms = Ctrl+key (RFC-0006).
+        // Usage: &hctl <key sent with Ctrl on hold> <key typed on tap>
+        hctl: hold_ctrl {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";      // Ctrl only after the full hold time; fast typing never triggers it
+            tapping-term-ms = <300>;       // hold this long for Ctrl+key
+            quick-tap-ms = <175>;          // tap, then tap-and-hold = letter repeats
+            require-prior-idle-ms = <125>; // pressed right after another key = always the letter
+            bindings = <&ctrl_tap>, <&kp>;
+        };
     };
 
     // Combos carried over from the Sofle (positions: row 0 = 0..11, row 1 = 12..23, row 2 = 24..35, thumbs = 36..41)
@@ -96,13 +120,14 @@
             // | ESC   |  Q    |  W    |  E    |  R    |  T  |   |  Y    |  U    |  I    |  O    |  P    |  -        |
             // | TAB   | gui/A | alt/S | ctl/D | sft/F |  G  |   |  H    | sft/J | ctl/K | alt/L | gui/; |  '        |
             // | SHIFT |  Z    |  X    |  C    |  V    |  B  |   |  N    |  M    |  ,    |  .    |  /    | =/SHIFT   |
-            //                       | CTRL  |NUM/DEL| RET |   | SPACE |NAV/BK |RALT/DEL|
+            //                       | CTRL  |NUM/BK | RET |   | SPACE |NAV/BK |RALT/DEL|
             // SHIFT: tap-dance, double tap = CAPS WORD.   Combo: P + - = BSPC
+            // Hold Z/X/C/V/B 300 ms = Ctrl+Z / Ctrl+X / Ctrl+C / Ctrl+V / Ctrl+A (sent once).
             bindings = <
                 &kp ESC   &kp Q       &kp W       &kp E        &kp R        &kp T     &kp Y     &kp U        &kp I        &kp O       &kp P          &kp MINUS
                 &kp TAB   &hml LGUI A &hml LALT S &hml LCTRL D &hml LSHFT F &kp G     &kp H     &hmr RSHFT J &hmr RCTRL K &hmr LALT L &hmr RGUI SEMI &kp SQT
-                &td_lshft &kp Z       &kp X       &kp C        &kp V        &kp B     &kp N     &kp M        &kp COMMA    &kp DOT     &kp FSLH       &mt RSHFT EQUAL
-                                                  &kp LCTRL &lt NUM DEL &kp RET &kp SPACE &lt NAV BSPC &mt_bal RALT DEL
+                &td_lshft &hctl Z Z   &hctl X X   &hctl C C    &hctl V V    &hctl A B &kp N     &kp M        &kp COMMA    &kp DOT     &kp FSLH       &mt RSHFT EQUAL
+                                                  &kp LCTRL &lt NUM BSPC &kp RET &kp SPACE &lt NAV BSPC &mt_bal RALT DEL
             >;
         };
 
